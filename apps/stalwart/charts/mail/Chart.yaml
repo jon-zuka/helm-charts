@@ -1,0 +1,5 @@
+apiVersion: v2
+name: mail
+description: Helm chart for Stalwart Mail Server
+version: 0.1.0
+appVersion: "latest"

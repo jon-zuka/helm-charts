@@ -1,0 +1,12 @@
+apiVersion: v2
+name: Stalwart
+description: Helm chart for Stalwart Mail Server
+version: 0.0.1
+appVersion: "0.0.1"
+dependencies:
+  - name: common
+    version: ">=0.0.0-alpha"
+    repository: file://../../libs/common
+  - name: mail
+    version: ">=0.0.0-alpha"
+    condition: mail.enabled

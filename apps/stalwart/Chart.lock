@@ -1,0 +1,9 @@
+dependencies:
+- name: common
+  repository: file://../../libs/common
+  version: 0.0.0-alpha
+- name: mail
+  repository: ""
+  version: '>=0.0.0-alpha'
+digest: sha256:c0fb595ddc3a1ef43edc4bb0c47eb1354f79aeef9fb30460bcce774112b4189e
+generated: "2024-12-18T18:08:34.786011167+01:00"

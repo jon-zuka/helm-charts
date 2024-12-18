@@ -1,0 +1,9 @@
+{{- with merge . (include "common.withStorage" . | fromYaml ) }}
+{{- include "common.deployment" . }}
+{{- end }}
+---
+{{- include "common.storage" . }}
+---
+{{ include "common.service" . }}
+
+
