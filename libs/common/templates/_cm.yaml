@@ -1,0 +1,41 @@
+{{- define "common.cm" }}
+{{- range .Values.cm }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-%s" (include "common.fullname" $) .name }}
+data:
+  {{- range $key, $value := .data }}
+  {{ $key }}: |
+    {{- tpl $value $ | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+
+
+{{- define "common.cmContext" }}
+{{- $mounts := .Values._volumeMounts | default list }}
+{{- $volumes := .Values._volumes | default list }}
+
+{{- range .Values.cm }}
+{{- $name :=  printf "%s-%s" (include "common.fullname" $) .name }}
+
+{{- $mount :=  dict
+  "name" .name
+  "mountPath" .path }}
+
+{{- $volume := dict
+  "name" .name
+  "configMap" (dict "name" $name) }}
+{{- $mounts = append $mounts $mount }}
+{{- $volumes = append $volumes $volume }}
+{{- end }}
+
+{{- $override := dict 
+  "Values" (dict 
+      "_volumeMounts" $mounts
+      "_volumes" $volumes) 
+}}
+
+{{- $override | toYaml }}
+{{- end }}

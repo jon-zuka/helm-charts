@@ -1,0 +1,40 @@
+pvc:
+  - name: data
+    size: 10Gi
+    class: local-path
+    path: /data
+    
+cm:
+  - name: config
+    path: /path-to-config
+    data:
+      config.ini: ""
+        
+svc:
+  - name: http
+    port: 80
+    containerPort: 3000
+  - name: ssh
+    port: 2222
+    containerPort: 22
+
+sa:
+  create: false
+    
+deploy:
+  image:
+    repository: gitea/gitea
+    tag: 1.23.3
+    policy: IfNotPresent
+  hpa:
+    min: 1
+    max: 1
+    cpu: 90
+    memory: 90
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "1200m"
+      memory: "512Mi"
