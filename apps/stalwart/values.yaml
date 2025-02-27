@@ -1,0 +1,55 @@
+pvc:
+  - name: data
+    size: 10Gi
+    class: local-path
+    path: /opt/stalwart-mail/data
+      
+# -- Internal traefik
+svc:
+  - name: http
+    port: 80
+    containerPort: 8080
+  - name: https
+    port: 443
+  - name: imap
+    port: 143
+  - name: pop
+    port: 110
+  - name: pops
+    port: 995
+
+# -- Load balancer 
+lb:
+  - name: smtp
+    port: 30025
+    containerPort: 25
+  - name: imaps
+    port: 30993
+  - name: smtps
+    port: 30465
+  - name: smtpsub
+    port: 30587
+  
+sa:
+  create: false
+    
+deploy:
+  image:
+    # -- image to use for deploying
+    repository: ghcr.io/stalwartlabs/mail-server
+    tag: v0.11.6
+    policy: IfNotPresent
+  # -- Horizontal pod scaling setup
+  hpa:
+    min: 1
+    max: 1
+    cpu: 90
+    memory: 90
+  # -- Resources
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "1200m"
+      memory: "512Mi"

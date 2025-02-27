@@ -1,0 +1,17 @@
+{{- $ctx := . }}
+{{- $ctx := mustMerge (include "common.pvcContext" $ctx | fromYaml) $ctx }}
+{{- $ctx := mustMerge (include "common.cmContext" $ctx | fromYaml) $ctx }}
+{{- $ctx := mustMerge (include "common.crtContext" $ctx | fromYaml) $ctx }}
+
+{{- include "common.deployment" $ctx }}
+---
+{{- include "common.pvc" . }}
+---
+{{- include "common.cm" . }}
+---
+{{- include "common.hpa" . }}
+---
+{{- include "common.svc" . }}
+---
+{{- include "common.lb" . }}
+

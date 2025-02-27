@@ -18,16 +18,21 @@ data:
 {{- $volumes := .Values._volumes | default list }}
 
 {{- range .Values.cm }}
-{{- $name :=  printf "%s-%s" (include "common.fullname" $) .name }}
+{{- $fullname :=  printf "%s-%s" (include "common.fullname" $) .name }}
+{{- $name := .name }}
+{{- $path := .path }}
 
+{{- range $key, $value := .data }}
 {{- $mount :=  dict
-  "name" .name
-  "mountPath" .path }}
+  "name" $name
+  "mountPath" $path
+  "subPath" $key }}
+{{- $mounts = append $mounts $mount }}
+{{- end }}
 
 {{- $volume := dict
   "name" .name
-  "configMap" (dict "name" $name) }}
-{{- $mounts = append $mounts $mount }}
+  "configMap" (dict "name" $fullname) }}
 {{- $volumes = append $volumes $volume }}
 {{- end }}
 

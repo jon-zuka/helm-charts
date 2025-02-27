@@ -16,11 +16,14 @@ spec:
     spec:
       {{- with .Values.deploy.image.secret }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: {{ . }}
       {{- end }}
       serviceAccountName: {{ include "common.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}  
+          {{- with .Values.deploy.args }}
+          args: {{ . | toYaml | nindent 12 }}
+          {{- end }}
           {{- with .Values.deploy.image }}
           image: "{{ .repository }}:{{ .tag }}"
           imagePullPolicy: {{ .policy }}
@@ -30,11 +33,16 @@ spec:
             - name: {{ .name | default "default" }}
               containerPort: {{ .containerPort | default .port }}
           {{- end }}
+          {{- range .Values.lb }}
+            - name: {{ .name | default "default" }}
+              containerPort: {{ .containerPort | default .port }}
+          {{- end }}
           resources: {{ toYaml .Values.deploy.resources | nindent 12 }}
           {{- with .Values._volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+
       {{- with .Values._volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

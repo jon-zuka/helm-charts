@@ -1,0 +1,36 @@
+{{- define "common.crtContext" }}
+{{- $mounts := .Values._volumeMounts | default list }}
+{{- $volumes := .Values._volumes | default list }}
+
+{{- range .Values.crt }}
+
+{{- $tlsKey :=  dict
+  "name" .name
+  "mountPath" (printf "%s/%s" .path "tls.key")
+  "subPath" "tls.key" }}
+{{- $mounts = append $mounts $tlsKey }}
+
+{{- $tlsCrt :=  dict
+  "name" .name
+  "mountPath" (printf "%s/%s" .path "tls.crt")
+  "subPath" "tls.crt" }}
+{{- $mounts = append $mounts $tlsCrt }}
+
+
+{{- $volume := dict
+  "name" .name
+  "secret" (dict "secretName" .name) }}
+{{- $volumes = append $volumes $volume }}
+
+{{- end }}
+
+
+{{- $override := dict 
+  "Values" (dict 
+      "_volumeMounts" $mounts
+      "_volumes" $volumes) 
+}}
+
+{{- $override | toYaml }}
+{{- end }}
+
