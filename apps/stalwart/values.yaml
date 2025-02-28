@@ -4,32 +4,38 @@ pvc:
     class: local-path
     path: /opt/stalwart-mail/data
       
-# -- Internal traefik
 svc:
   - name: http
-    port: 80
-    containerPort: 8080
-  - name: https
-    port: 443
-  - name: imap
-    port: 143
-  - name: pop
-    port: 110
-  - name: pops
-    port: 995
-
-# -- Load balancer 
-lb:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 80
+        containerPort: 8080
+      - name: https
+        port: 443
+  - name: tcp
+    type: ClusterIP
+    ports:
+      - name: imap
+        port: 143
+      - name: pop
+        port: 110
+      - name: pops
+        port: 995
+      - name: smtp
+        port: 25
+      - name: smtpsub
+        port: 587
+      - name: imaps
+        port: 993
+      - name: smtps
+        port: 465
   - name: smtp
-    port: 30025
-    containerPort: 25
-  - name: imaps
-    port: 30993
-  - name: smtps
-    port: 30465
-  - name: smtpsub
-    port: 30587
-  
+    type: LoadBalancer
+    ports:
+      - name: smtp
+        port: 25
+ 
 sa:
   create: false
     

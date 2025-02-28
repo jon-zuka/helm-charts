@@ -1,46 +1,26 @@
 {{- define "common.svc" }}
-{{- with .Values.svc }}
+{{- range .Values.svc }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.fullname" $ }}
+  name: {{ printf "%s-%s" (include "common.fullname" $) .name }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .type | default "ClusterIP" }}
   ports:
-  {{- range . }}
+  {{- range .ports }}
     - name: {{ .name | default "default" }}
       port: {{ .port | default .containerPort }}
+      {{- if .nodePort }}
+      nodePort: {{ .nodePort}}
+      {{- end }}
       targetPort: {{ .containerPort | default .port }}
       protocol: {{ .protocol | default "TCP" }}
   {{- end }}
   selector:
     {{- include "common.selectorLabels" $ | nindent 4 }}
-{{- end }}
-{{- end }}
-
-
-{{- define "common.lb" }}
-{{- with .Values.lb }}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "common.fullname" $ }}-lb
-  labels:
-    {{- include "common.labels" $ | nindent 4 }}
-spec:
-  type: LoadBalancer
-  ports:
-  {{- range . }}
-    - name: {{ .name | default "default" }}
-      port: {{ .port | default .containerPort }}
-      nodePort: {{ .port | default .containerPort }}
-      targetPort: {{ .containerPort | default .port }}
-      protocol: {{ .protocol | default "TCP" }}
-  {{- end }}
-  selector:
-    {{- include "common.selectorLabels" $ | nindent 4 }}
+---
 {{- end }}
 {{- end }}
 

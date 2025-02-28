@@ -30,8 +30,10 @@ spec:
           {{- end }}
           ports:
           {{- range .Values.svc }}
+          {{- range .ports }}
             - name: {{ .name | default "default" }}
               containerPort: {{ .containerPort | default .port }}
+          {{- end }}
           {{- end }}
           {{- range .Values.lb }}
             - name: {{ .name | default "default" }}
