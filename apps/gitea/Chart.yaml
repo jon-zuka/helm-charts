@@ -1,11 +1,11 @@
 apiVersion: v2
 name: gitea
 description: Self-hosted git service
-version: 0.0.0-dev.1
-appVersion:: 0.0.0-dev.1
+version: 0.0.1
+appVersion:: 0.0.1
 dependencies:
   - name: common
     repository: file://../../libs/common
-    version: ">=0.0.0-dev.1"
+    version: 0.0.1
     
 
