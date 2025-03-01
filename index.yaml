@@ -1,3 +1,40 @@
 apiVersion: v1
-entries: {}
-generated: "2025-03-01T21:42:48.208919139Z"
+entries:
+  common:
+  - apiVersion: v2
+    created: "2025-03-01T22:15:45.707904193Z"
+    description: Common helm functions and templates
+    digest: 3cbaba4cf91d07e2d906ff67191b3d362b276201d04285580ab3883be9e9ec59
+    name: common
+    type: library
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/common-0.0.1.tgz
+    version: 0.0.1
+  gitea:
+  - apiVersion: v2
+    created: "2025-03-01T22:15:45.708389479Z"
+    dependencies:
+    - name: common
+      repository: file://../../libs/common
+      version: 0.0.1
+    description: Self-hosted git service
+    digest: 82349e625a333d97fd2cfafeb8056e144f55ee743e09c0ac55ebea6f21ec6367
+    name: gitea
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/gitea-0.0.1.tgz
+    version: 0.0.1
+  stalwart:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-03-01T22:15:45.708900132Z"
+    dependencies:
+    - name: common
+      repository: file://../../libs/common
+      version: 0.0.1
+    description: Self hosted email service
+    digest: bedf9407d41db0ad6e218a39917fc8d52f790c00b3af18bf6fbc014784d61dd9
+    name: stalwart
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/stalwart-0.0.1.tgz
+    version: 0.0.1
+generated: "2025-03-01T22:15:45.707355488Z"
