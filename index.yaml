@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    created: "2025-03-08T23:51:56.248375161Z"
+    created: "2025-03-08T23:58:24.39044682Z"
     description: Common helm functions and templates
     digest: 67245dc1fb64915d63bc9a5dba0ee406f1d8b6877d4e8e4fe6c385d7e11537fd
     name: common
@@ -11,7 +11,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/common-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2025-03-08T23:51:56.248054263Z"
+    created: "2025-03-08T23:58:24.390218735Z"
     description: Common helm functions and templates
     digest: 3cbaba4cf91d07e2d906ff67191b3d362b276201d04285580ab3883be9e9ec59
     name: common
@@ -21,7 +21,7 @@ entries:
     version: 0.0.1
   gitea:
   - apiVersion: v2
-    created: "2025-03-08T23:51:56.249336886Z"
+    created: "2025-03-08T23:58:24.390921073Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -32,10 +32,53 @@ entries:
     urls:
     - https://jon-zuka.github.io/helm-charts/charts/gitea-0.0.1.tgz
     version: 0.0.1
+  grafana:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-03-08T23:58:24.39138144Z"
+    dependencies:
+    - name: common
+      repository: https://jon-zuka.github.io/helm-charts
+      version: 0.0.2
+    description: Grafana is an UI for monitoring and visualizing data.
+    digest: 5fd3c76d320eea9d6b5301437c5e14ede77e280c74f81b19a9bb20a098188de5
+    name: grafana
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/grafana-0.0.1.tgz
+    version: 0.0.1
+  loki:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-03-08T23:58:24.391791534Z"
+    dependencies:
+    - name: common
+      repository: https://jon-zuka.github.io/helm-charts
+      version: 0.0.2
+    description: Loki is a log aggregation system for Grafana.
+    digest: cccd6f458ec18b98438a45958a7a7e7a089550e3f66760cc0e5130c0f2dbf1ec
+    name: loki
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/loki-0.0.1.tgz
+    version: 0.0.1
+  promtail:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2025-03-08T23:58:24.392327182Z"
+    dependencies:
+    - name: common
+      repository: https://jon-zuka.github.io/helm-charts
+      version: 0.0.2
+    description: Promtail is a log collector that ships logs to Loki for storage and
+      querying
+    digest: 0054231bb813947fd0be3e15a7911000ad0dd4a79c58adbb6c031812bf5a35a1
+    name: promtail
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/promtail-0.0.1.tgz
+    version: 0.0.1
   stalwart:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-08T23:51:56.250147624Z"
+    created: "2025-03-08T23:58:24.392825941Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -46,4 +89,4 @@ entries:
     urls:
     - https://jon-zuka.github.io/helm-charts/charts/stalwart-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-08T23:51:56.247515659Z"
+generated: "2025-03-08T23:58:24.389870636Z"
