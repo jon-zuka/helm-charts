@@ -1,6 +1,6 @@
-{{- define "common.deployment" }}
+{{- define "common.ds" }}
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: {{ include "common.fullname" . }}
   labels:
@@ -16,20 +16,23 @@ spec:
       annotations:
         checksum/config: {{ .Values | toYaml | sha256sum }}
     spec:
-      {{- with .Values.deploy.image.secret }}
+      {{- with .Values.ds.image.secret }}
       imagePullSecrets:
         - name: {{ . }}
       {{- end }}
       serviceAccountName: {{ .Values.sa.name | default "default" }}
       containers:
         - name: {{ .Chart.Name }}  
-          {{- with .Values.deploy.args }}
+          {{- with .Values.ds.args }}
           args: {{ . | toYaml | nindent 12 }}
           {{- end }}
-          {{- with .Values.deploy.env }}
+          {{- with .Values.ds.env }}
           env: {{ . | toYaml | nindent 12 }}
           {{- end }}
-          {{- with .Values.deploy.image }}
+          {{- with .Values.ds.securityContext }}
+          securityContext: {{ . | toYaml | nindent 12 }}
+          {{- end }}
+          {{- with .Values.ds.image }}
           image: "{{ .repository }}:{{ .tag }}"
           imagePullPolicy: {{ .policy }}
           {{- end }}
@@ -40,7 +43,7 @@ spec:
               containerPort: {{ .containerPort | default .port }}
           {{- end }}
           {{- end }}
-          resources: {{ toYaml .Values.deploy.resources | nindent 12 }}
+          resources: {{ toYaml .Values.ds.resources | nindent 12 }}
           {{- with .Values._volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

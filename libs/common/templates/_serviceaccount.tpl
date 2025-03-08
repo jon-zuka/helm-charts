@@ -1,15 +1,17 @@
-{{- define "common.serviceAccount" }}
-{{- if .Values.deploy.serviceAccount.create -}}
+{{- define "common.sa" }}
+{{ with .Values.sa }}
+{{- if .create }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ include "common.serviceAccountName" . }}
+  name: {{ .name | default "default" }}
   labels:
-    {{- include "common.labels" . | nindent 4 }}
-  {{- with .Values.serviceAccount.annotations }}
+    {{- include "common.labels" $ | nindent 4 }}
+  {{- with .annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+    {{- toYaml $ | nindent 4 }}
   {{- end }}
-automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+automountServiceAccountToken: true
+{{- end }}
 {{- end }}
 {{- end }}

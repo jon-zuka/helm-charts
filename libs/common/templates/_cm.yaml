@@ -9,6 +9,7 @@ data:
   {{ $key }}: |
     {{- tpl $value $ | nindent 4 }}
   {{- end }}
+---
 {{- end }}
 {{- end }}
 
@@ -21,18 +22,20 @@ data:
 {{- $fullname :=  printf "%s-%s" (include "common.fullname" $) .name }}
 {{- $name := .name }}
 {{- $path := .path }}
+{{- $items := list }}
 
 {{- range $key, $value := .data }}
+{{- $items = append $items (dict "key" $key "path" $key) }}
 {{- $mount :=  dict
   "name" $name
-  "mountPath" $path
+  "mountPath" (printf "%s/%s" $path $key)
   "subPath" $key }}
 {{- $mounts = append $mounts $mount }}
 {{- end }}
 
 {{- $volume := dict
   "name" .name
-  "configMap" (dict "name" $fullname) }}
+  "configMap" (dict "name" $fullname "items" $items) }}
 {{- $volumes = append $volumes $volume }}
 {{- end }}
 
