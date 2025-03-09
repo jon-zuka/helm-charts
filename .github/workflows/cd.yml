@@ -42,9 +42,9 @@ jobs:
               CHART_VERSION=$(yq e '.version' "$chart/Chart.yaml")
               echo "Checking chart: $CHART_NAME, version: $CHART_VERSION"
               CHART_EXISTS=$(yq eval ".entries.${CHART_NAME} // []" /tmp/index.yaml \
-                | jq "any(.; .version == \"${CHART_VERSION}\")" \
-                | jq "if . then true else false end")
-              if [ "$CHART_EXISTS" == "false" ]; then
+                | yq e -o=json '.' \
+                | jq --arg version "$CHART_VERSION" 'map(select(.version == $version)) | length > 0')
+              if [ -z "$CHART_EXISTS" ]; then
                 CHANGED_CHARTS="$CHANGED_CHARTS $chart"
                 echo "Detected change in $chart (version: $CHART_VERSION)"
               fi
