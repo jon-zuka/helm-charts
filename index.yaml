@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    created: "2025-03-09T19:09:45.084729086Z"
+    created: "2025-03-09T19:17:57.585185588Z"
     description: Common helm functions and templates
     digest: 545c85197a7134bca0e80f1b28d79c0e2982c2e0b3f488c0fdb1255376f879e1
     name: common
@@ -11,7 +11,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/common-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v2
-    created: "2025-03-09T19:09:45.08449008Z"
+    created: "2025-03-09T19:17:57.584990165Z"
     description: Common helm functions and templates
     digest: 67245dc1fb64915d63bc9a5dba0ee406f1d8b6877d4e8e4fe6c385d7e11537fd
     name: common
@@ -20,7 +20,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/common-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2025-03-09T19:09:45.084287411Z"
+    created: "2025-03-09T19:17:57.584744509Z"
     description: Common helm functions and templates
     digest: 3cbaba4cf91d07e2d906ff67191b3d362b276201d04285580ab3883be9e9ec59
     name: common
@@ -30,7 +30,7 @@ entries:
     version: 0.0.1
   gitea:
   - apiVersion: v2
-    created: "2025-03-09T19:09:45.085606667Z"
+    created: "2025-03-09T19:17:57.586748568Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -42,7 +42,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/gitea-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2025-03-09T19:09:45.085199716Z"
+    created: "2025-03-09T19:17:57.585967779Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -55,8 +55,21 @@ entries:
     version: 0.0.1
   grafana:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-03-09T19:17:57.588128469Z"
+    dependencies:
+    - name: common
+      repository: https://jon-zuka.github.io/helm-charts
+      version: 0.0.3
+    description: Grafana is an UI for monitoring and visualizing data.
+    digest: 6ff796266967309c1aa76def37386d3508971adb64fc817e8dc8d805c1386995
+    name: grafana
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/grafana-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:09:45.086036811Z"
+    created: "2025-03-09T19:17:57.58746636Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -70,7 +83,7 @@ entries:
   loki:
   - apiVersion: v2
     appVersion: 0.0.2
-    created: "2025-03-09T19:09:45.087007336Z"
+    created: "2025-03-09T19:17:57.589020724Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -83,7 +96,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:09:45.086471193Z"
+    created: "2025-03-09T19:17:57.588542727Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -97,7 +110,7 @@ entries:
   monitoring:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:09:45.088450073Z"
+    created: "2025-03-09T19:17:57.591182398Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -123,7 +136,7 @@ entries:
   promtail:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:09:45.088953354Z"
+    created: "2025-03-09T19:17:57.591679651Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -138,7 +151,7 @@ entries:
   stalwart:
   - apiVersion: v2
     appVersion: 0.0.2
-    created: "2025-03-09T19:09:45.090735986Z"
+    created: "2025-03-09T19:17:57.592621779Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -151,7 +164,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:09:45.089765572Z"
+    created: "2025-03-09T19:17:57.592161235Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -162,4 +175,4 @@ entries:
     urls:
     - https://jon-zuka.github.io/helm-charts/charts/stalwart-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-09T19:09:45.083975568Z"
+generated: "2025-03-09T19:17:57.584452738Z"
