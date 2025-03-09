@@ -5,6 +5,27 @@ svc:
       - name: http
         port: 80
         containerPort: 3000
+
+datasources: |
+  apiVersion: 1
+  datasources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url:  {{ .Values.lokiUrl }}
+      isDefault: false
+      uid: 15f021102308debdff85616b55af7d67
+      jsonData:
+        timeout: 60
+        maxLines: 1000
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: {{ .Values.prometheusUrl }}
+      isDefault: true
+      uid: 35f021102308debdff85616b55af7d78
+      jsonData:
+        timeInterval: "5s"
   
 cm:
   - name: config
@@ -14,7 +35,28 @@ cm:
   - name: datasources
     path: "/var/grafana/provisioning/datasources"
     data:
-      datasources.yaml: "{{ .Values.datasources }}"
+      datasources.yaml: |
+        {{ tpl .Values.datasources $ }}
+  - name: dashboards
+    path: "/var/grafana/dashboards"
+    data:
+      metrics.json: |-
+        {{ $.Files.Get "dashboards_metrics.json" | fromJson | toJson }}
+      logs.json: |
+        {{ .Files.Get "dashboards_logs.json" | fromJson | toJson }}
+  - name: provisioning
+    path: "/var/grafana/provisioning/dashboards"
+    data:
+      dashboards.yaml: |-
+        apiVersion: 1
+        providers:
+          - name: "default"
+            type: file
+            options:
+              path: "/var/grafana/dashboards"
+            disableDeletion: true
+            editable: false
+            updateIntervalSeconds: 10
 
 sa:
   create: False
