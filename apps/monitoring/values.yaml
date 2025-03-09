@@ -1,18 +1,9 @@
+
 grafana:
   enabled: true
-  datasources: |
-    apiVersion: 1
-    datasources:
-      - name: Loki
-        type: loki
-        access: proxy
-        url: http://monitoring-loki-http:3100
-        isDefault: false
-        uid: 15f021102308debdff85616b55af7d67
-        jsonData:
-          timeout: 60
-          maxLines: 1000
-
+  prometheusUrl: http://monitoring-prometheus:9090
+  lokiUrl: http://monitoring-loki-http:3100
+        
 loki:
   enabled: true
 

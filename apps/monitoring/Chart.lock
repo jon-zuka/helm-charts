@@ -1,15 +1,15 @@
 dependencies:
 - name: common
   repository: https://jon-zuka.github.io/helm-charts
-  version: 0.0.2
+  version: 0.0.3
 - name: grafana
   repository: https://jon-zuka.github.io/helm-charts
-  version: 0.0.1
+  version: 0.0.2
 - name: loki
   repository: https://jon-zuka.github.io/helm-charts
-  version: 0.0.1
+  version: 0.0.2
 - name: promtail
   repository: https://jon-zuka.github.io/helm-charts
   version: 0.0.1
-digest: sha256:5fe8e0271f3275d7fc807e44fa38d864807ccccea9582358a0198ac06548f10a
-generated: "2025-03-09T00:00:20.195525755Z"
+digest: sha256:7ebcdb86ae32e7191b9b8653e3294049a9756de952b3e17bb6555ab7bdff7796
+generated: "2025-03-09T19:18:55.296066132Z"
