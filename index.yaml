@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
-    created: "2025-03-09T19:03:16.011629482Z"
+    created: "2025-03-09T19:09:45.084729086Z"
     description: Common helm functions and templates
     digest: 545c85197a7134bca0e80f1b28d79c0e2982c2e0b3f488c0fdb1255376f879e1
     name: common
@@ -11,7 +11,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/common-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v2
-    created: "2025-03-09T19:03:16.011417845Z"
+    created: "2025-03-09T19:09:45.08449008Z"
     description: Common helm functions and templates
     digest: 67245dc1fb64915d63bc9a5dba0ee406f1d8b6877d4e8e4fe6c385d7e11537fd
     name: common
@@ -20,7 +20,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/common-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2025-03-09T19:03:16.011052491Z"
+    created: "2025-03-09T19:09:45.084287411Z"
     description: Common helm functions and templates
     digest: 3cbaba4cf91d07e2d906ff67191b3d362b276201d04285580ab3883be9e9ec59
     name: common
@@ -30,7 +30,7 @@ entries:
     version: 0.0.1
   gitea:
   - apiVersion: v2
-    created: "2025-03-09T19:03:16.01254083Z"
+    created: "2025-03-09T19:09:45.085606667Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -42,7 +42,7 @@ entries:
     - https://jon-zuka.github.io/helm-charts/charts/gitea-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2025-03-09T19:03:16.012100765Z"
+    created: "2025-03-09T19:09:45.085199716Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -56,7 +56,7 @@ entries:
   grafana:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:03:16.012966808Z"
+    created: "2025-03-09T19:09:45.086036811Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -69,8 +69,21 @@ entries:
     version: 0.0.1
   loki:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-03-09T19:09:45.087007336Z"
+    dependencies:
+    - name: common
+      repository: https://jon-zuka.github.io/helm-charts
+      version: 0.0.3
+    description: Loki is a log aggregation system for Grafana.
+    digest: 2bb8057de571864627156db45bd2a3ea96f11b02cfb6b05becad5346545048d9
+    name: loki
+    urls:
+    - https://jon-zuka.github.io/helm-charts/charts/loki-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:03:16.014049127Z"
+    created: "2025-03-09T19:09:45.086471193Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -84,7 +97,7 @@ entries:
   monitoring:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:03:16.017345155Z"
+    created: "2025-03-09T19:09:45.088450073Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -110,7 +123,7 @@ entries:
   promtail:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:03:16.018286449Z"
+    created: "2025-03-09T19:09:45.088953354Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -125,7 +138,7 @@ entries:
   stalwart:
   - apiVersion: v2
     appVersion: 0.0.2
-    created: "2025-03-09T19:03:16.020123131Z"
+    created: "2025-03-09T19:09:45.090735986Z"
     dependencies:
     - name: common
       repository: https://jon-zuka.github.io/helm-charts
@@ -138,7 +151,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-03-09T19:03:16.019234606Z"
+    created: "2025-03-09T19:09:45.089765572Z"
     dependencies:
     - name: common
       repository: file://../../libs/common
@@ -149,4 +162,4 @@ entries:
     urls:
     - https://jon-zuka.github.io/helm-charts/charts/stalwart-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-09T19:03:16.010755223Z"
+generated: "2025-03-09T19:09:45.083975568Z"
