@@ -40,14 +40,18 @@ jobs:
             if [ -f "$chart/Chart.yaml" ]; then
               CHART_NAME=$(yq e '.name' "$chart/Chart.yaml")
               CHART_VERSION=$(yq e '.version' "$chart/Chart.yaml")
+
               echo "Checking chart: $CHART_NAME, version: $CHART_VERSION"
+
               CHART_EXISTS=$(yq eval ".entries.${CHART_NAME} // []" /tmp/index.yaml \
                 | yq e -o=json '.' \
                 | jq --arg version "$CHART_VERSION" 'map(select(.version == $version)) | length > 0')
-              if [ -z "$CHART_EXISTS" ]; then
+                
+              if [ "$CHART_EXISTS" == "false" ]; then
                 CHANGED_CHARTS="$CHANGED_CHARTS $chart"
                 echo "Detected change in $chart (version: $CHART_VERSION)"
               fi
+              
             fi
           done
           echo "CHANGED_CHARTS=$CHANGED_CHARTS" >> $GITHUB_ENV

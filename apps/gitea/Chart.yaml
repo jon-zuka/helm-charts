@@ -1,11 +1,11 @@
 apiVersion: v2
 name: gitea
 description: Self-hosted git service
-version: 0.0.1
-appVersion:: 0.0.1
+version: 0.0.2
+appVersion:: 0.0.2
 dependencies:
   - name: common
-    repository: file://../../libs/common
-    version: 0.0.1
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.2
     
 
