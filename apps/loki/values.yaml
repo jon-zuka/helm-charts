@@ -4,12 +4,10 @@ cm:
     data:
       local-config.yaml: |-
         auth_enabled: false
-
         server:
           http_listen_port: 3100
           grpc_listen_port: 9096
           grpc_server_max_concurrent_streams: 1000
-
         common:
           instance_addr: 127.0.0.1
           path_prefix: /var/loki/data
@@ -47,6 +45,17 @@ sa:
 
 deploy:
   args: [ "-config.file", "/var/loki/config/local-config.yaml" ]
+  podSecurityContext:
+    fsGroup: 10001
+    runAsGroup: 10001
+    runAsNonRoot: false
+    runAsUser: 10001
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
+    capabilities:
+      drop:
+        - ALL
+    allowPrivilegeEscalation: false  
   image:
     repository: grafana/loki
     tag: 3.3.2
