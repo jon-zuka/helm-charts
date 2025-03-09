@@ -1,0 +1,15 @@
+{{- $ctx := . }}
+{{- $ctx := mustMerge (include "common.cmContext" $ctx | fromYaml) $ctx }}
+
+{{ include "common.crb" $ctx }}
+---
+{{ include "common.sa" $ctx }}
+---
+{{ include "common.cr" $ctx }}
+---
+{{ include "common.cm" $ctx }}
+---
+{{ include "common.ds" $ctx }}
+---
+{{ include "common.svc" $ctx }}
+

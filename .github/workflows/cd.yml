@@ -40,7 +40,11 @@ jobs:
             if [ -f "$chart/Chart.yaml" ]; then
               CHART_NAME=$(yq e '.name' "$chart/Chart.yaml")
               CHART_VERSION=$(yq e '.version' "$chart/Chart.yaml")
-              if ! grep -q "version: $CHART_VERSION" /tmp/index.yaml 2>/dev/null; then
+              echo "Checking chart: $CHART_NAME, version: $CHART_VERSION"
+              CHART_EXISTS=$(yq eval ".entries.${CHART_NAME} // []" /tmp/index.yaml \
+                | jq "any(.; .version == \"${CHART_VERSION}\")" \
+                | jq "if . then true else false end")
+              if [ "$CHART_EXISTS" == "false" ]; then
                 CHANGED_CHARTS="$CHANGED_CHARTS $chart"
                 echo "Detected change in $chart (version: $CHART_VERSION)"
               fi
@@ -53,7 +57,7 @@ jobs:
         run: |
           for chart in $CHANGED_CHARTS; do
             echo "Updating dependencies for $chart..."
-            helm dependency update --skip-refresh $chart
+            helm dependency update $chart
             helm package "$chart" --destination /tmp/charts
           done
 

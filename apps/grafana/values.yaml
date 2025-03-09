@@ -1,0 +1,43 @@
+svc:
+  - name: http
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 80
+        containerPort: 3000
+  
+cm:
+  - name: config
+    path: "/var/grafana/config"
+    data:
+      grafana.ini: "{{ .Values.config }}"
+  - name: datasources
+    path: "/var/grafana/provisioning/datasources"
+    data:
+      datasources.yaml: "{{ .Values.datasources }}"
+
+sa:
+  create: False
+
+deploy:
+  image:
+    repository: grafana/grafana
+    tag: 11.5.2
+    policy: IfNotPresent
+  hpa:
+    min: 1
+    max: 1
+    cpu: 90
+    memory: 90
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 1200m
+      memory: 512Mi
+  env:
+    - name: GF_PATHS_CONFIG
+      value: /var/grafana/config/grafana.ini
+    - name: GF_PATHS_PROVISIONING
+      value: /var/grafana/provisioning

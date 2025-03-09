@@ -1,0 +1,66 @@
+cm:
+  - name: config
+    path: "/var/loki/config"
+    data:
+      local-config.yaml: |-
+        auth_enabled: false
+
+        server:
+          http_listen_port: 3100
+          grpc_listen_port: 9096
+          grpc_server_max_concurrent_streams: 1000
+
+        common:
+          instance_addr: 127.0.0.1
+          path_prefix: /var/loki/data
+          storage:
+            filesystem:
+              chunks_directory: /var/loki/data/chunks
+              rules_directory: /var/loki/data/rules
+          replication_factor: 1
+          ring:
+            kvstore:
+              store: inmemory
+        schema_config:
+          configs:
+            - from: 2020-10-24
+              store: tsdb
+              object_store: filesystem
+              schema: v13
+              index:
+                prefix: index_
+                period: 24h
+        analytics:
+          reporting_enabled: false
+              
+svc:
+  - name: http
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 3100
+      - name: grpc
+        port: 9096
+
+sa:
+  create: False
+
+deploy:
+  args: [ "-config.file", "/var/loki/config/local-config.yaml" ]
+  image:
+    repository: grafana/loki
+    tag: 3.3.2
+    policy: IfNotPresent
+  hpa:
+    min: 1
+    max: 1
+    cpu: 90
+    memory: 90
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 1200m
+      memory: 512Mi
+

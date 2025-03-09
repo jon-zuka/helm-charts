@@ -1,0 +1,50 @@
+grafana:
+  enabled: true
+  datasources: |
+    apiVersion: 1
+    datasources:
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://monitoring-loki-http:3100
+        isDefault: false
+        uid: 15f021102308debdff85616b55af7d67
+        jsonData:
+          timeout: 60
+          maxLines: 1000
+
+loki:
+  enabled: true
+
+promtail:
+  enable: true
+  sa:
+    create: true
+    name: promtail
+  cr:
+    - name: promtail
+      create: true
+      rules:
+      - apiGroups:
+        - ""
+        resources:
+        - nodes
+        - nodes/proxy
+        - services
+        - endpoints
+        - pods
+        verbs:
+        - get
+        - watch
+        - list    
+  crb:
+    - name: promtail
+      create: true
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: promtail
+      subjects:
+      - kind: ServiceAccount
+        name: promtail
+        namespace: monitoring

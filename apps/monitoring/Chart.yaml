@@ -1,0 +1,21 @@
+apiVersion: v2
+name: monitoring
+description: Monitoring stack using grafana, loki and promtail.
+version: 0.0.1
+appVersion: 0.0.1
+dependencies:
+  - name: common
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.2
+  - name: grafana
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.1
+    condition: grafana.enabled
+  - name: loki
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.1
+    condition: loki.enabled
+  - name: promtail
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.1
+    condition: promtail.enabled

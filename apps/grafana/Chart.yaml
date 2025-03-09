@@ -1,0 +1,9 @@
+apiVersion: v2
+name: grafana
+description: Grafana is an UI for monitoring and visualizing data.
+version: 0.0.1
+appVersion: 0.0.1
+dependencies:
+  - name: common
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.2

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: promtail
+description: Promtail is a log collector that ships logs to Loki for storage and querying
+version: 0.0.1
+appVersion: 0.0.1
+dependencies:
+  - name: common
+    repository: https://jon-zuka.github.io/helm-charts
+    version: 0.0.2

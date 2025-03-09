@@ -1,0 +1,6 @@
+dependencies:
+- name: common
+  repository: https://jon-zuka.github.io/helm-charts
+  version: 0.0.2
+digest: sha256:fe57db62313445187b08133f28d02fb859b0d7e6ef49014460565e992de67f6a
+generated: "2025-03-08T20:43:32.098480776Z"
