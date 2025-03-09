@@ -20,9 +20,15 @@ spec:
       imagePullSecrets:
         - name: {{ . }}
       {{- end }}
+      {{- with .Values.deploy.podSecurityContext }}
+      securityContext: {{ . | toYaml | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ .Values.sa.name | default "default" }}
       containers:
         - name: {{ .Chart.Name }}  
+          {{- with .Values.deploy.command }}
+          command: {{ . | toYaml | nindent 12 }}
+          {{- end }}
           {{- with .Values.deploy.args }}
           args: {{ . | toYaml | nindent 12 }}
           {{- end }}
@@ -32,6 +38,9 @@ spec:
           {{- with .Values.deploy.image }}
           image: "{{ .repository }}:{{ .tag }}"
           imagePullPolicy: {{ .policy }}
+          {{- end }}
+          {{- with .Values.deploy.containerSecurityContext }}
+          securityContext: {{ . | toYaml | nindent 12 }}
           {{- end }}
           ports:
           {{- range .Values.svc }}
