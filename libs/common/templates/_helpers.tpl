@@ -49,3 +49,19 @@ Selector labels
 app.kubernetes.io/name: {{ include "common.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Default values
+*/}}
+{{- define "common.defaultValues" }}
+{{- $defaults := dict
+  "_sa" (dict "create" false "name" "default")
+  "_hpa" (dict "min" 1 "max" 1 "cpu" 90 "memory" 90)
+  "_resources" (dict
+    "requests" (dict "cpu" "10m" "memory" "100Mi")
+    "limits" (dict "cpu" "1200m" "memory" "512Mi") )
+  "_image" (dict "policy" "IfNotPresent")
+}}
+{{- $values := dict "Values" $defaults }}
+{{- $values | toYaml }}
+{{- end }}

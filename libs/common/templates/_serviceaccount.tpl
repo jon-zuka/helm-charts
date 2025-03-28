@@ -1,5 +1,5 @@
 {{- define "common.sa" }}
-{{ with .Values.sa }}
+{{ with .Values._sa }}
 {{- if .create }}
 apiVersion: v1
 kind: ServiceAccount

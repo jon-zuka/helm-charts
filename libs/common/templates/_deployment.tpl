@@ -1,4 +1,5 @@
 {{- define "common.deployment" }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,32 +17,17 @@ spec:
       annotations:
         checksum/config: {{ .Values | toYaml | sha256sum }}
     spec:
-      {{- with .Values.deploy.image.secret }}
-      imagePullSecrets:
-        - name: {{ . }}
-      {{- end }}
-      {{- with .Values.deploy.podSecurityContext }}
-      securityContext: {{ . | toYaml | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ .Values.sa.name | default "default" }}
+      imagePullSecrets: {{ .Values._image.secrets | toYaml | nindent 8 }}
+      securityContext: {{ .Values._podSecurityContext | toYaml | nindent 8 }}
+      serviceAccountName: {{ .Values._sa.name }}
       containers:
         - name: {{ .Chart.Name }}  
-          {{- with .Values.deploy.command }}
-          command: {{ . | toYaml | nindent 12 }}
-          {{- end }}
-          {{- with .Values.deploy.args }}
-          args: {{ . | toYaml | nindent 12 }}
-          {{- end }}
-          {{- with .Values.deploy.env }}
-          env: {{ . | toYaml | nindent 12 }}
-          {{- end }}
-          {{- with .Values.deploy.image }}
-          image: "{{ .repository }}:{{ .tag }}"
-          imagePullPolicy: {{ .policy }}
-          {{- end }}
-          {{- with .Values.deploy.containerSecurityContext }}
-          securityContext: {{ . | toYaml | nindent 12 }}
-          {{- end }}
+          command: {{ .Values._command | toYaml | nindent 12 }}
+          args: {{ .Values._args | toYaml | nindent 12 }}
+          env: {{ .Values._env | toYaml | nindent 12 }}
+          image: "{{ .Values._image.repository }}:{{ .Values._image.tag }}"
+          imagePullPolicy: {{ .Values._image.policy }}
+          securityContext: {{ .Values._containerSecurityContext | toYaml | nindent 12 }}
           ports:
           {{- range .Values.svc }}
           {{- range .ports }}
@@ -49,12 +35,11 @@ spec:
               containerPort: {{ .containerPort | default .port }}
           {{- end }}
           {{- end }}
-          resources: {{ toYaml .Values.deploy.resources | nindent 12 }}
+          resources: {{ toYaml .Values._resources | nindent 12 }}
           {{- with .Values._volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-
       {{- with .Values._volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

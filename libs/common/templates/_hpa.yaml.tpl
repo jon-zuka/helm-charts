@@ -1,5 +1,5 @@
 {{- define "common.hpa" }}
-{{- with .Values.deploy.hpa }}
+{{- with .Values._hpa }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:

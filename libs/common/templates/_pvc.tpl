@@ -1,5 +1,6 @@
 {{- define "common.pvc" }}
 {{ range .Values.pvc }}
+{{ if .create }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,6 +12,7 @@ spec:
   resources:
     requests:
       storage: {{ .size }}
+{{- end }}
 {{- end }}
 {{- end }}
 

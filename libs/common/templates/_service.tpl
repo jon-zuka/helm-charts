@@ -1,5 +1,5 @@
-{{- define "common.svc" }}
-{{- range .Values.svc }}
+{{- define "common.services" }}
+{{- range .Values._services }}
 apiVersion: v1
 kind: Service
 metadata:
