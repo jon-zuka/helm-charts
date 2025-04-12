@@ -16,12 +16,6 @@ spec:
   metrics:
     - type: Resource
       resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: {{ .cpu }}
-    - type: Resource
-      resource:
         name: memory
         target:
           type: Utilization

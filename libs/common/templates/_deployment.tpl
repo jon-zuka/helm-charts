@@ -28,6 +28,8 @@ spec:
           image: "{{ .Values._image.repository }}:{{ .Values._image.tag }}"
           imagePullPolicy: {{ .Values._image.policy }}
           securityContext: {{ .Values._containerSecurityContext | toYaml | nindent 12 }}
+          livenessProbe: {{ .Values._image.liveness | toYaml | nindent 12 }}
+          readinessProbe: {{ .Values._image.readiness | toYaml | nindent 12 }}
           ports:
           {{- range .Values.svc }}
           {{- range .ports }}
@@ -44,4 +46,8 @@ spec:
       volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+---
+{{- include "common.hpa" . }}
+---
+{{- include "common.services" . }}
 {{- end }}

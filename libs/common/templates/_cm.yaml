@@ -1,5 +1,5 @@
-{{- define "common.cm" }}
-{{- range .Values.cm }}
+{{- define "common.configmaps" }}
+{{- range .Values._configmaps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -14,11 +14,11 @@ data:
 {{- end }}
 
 
-{{- define "common.cmContext" }}
+{{- define "common.configmapsContext" }}
 {{- $mounts := .Values._volumeMounts | default list }}
 {{- $volumes := .Values._volumes | default list }}
 
-{{- range .Values.cm }}
+{{- range .Values._configmaps }}
 {{- $fullname :=  printf "%s-%s" (include "common.fullname" $) .name }}
 {{- $name := .name }}
 {{- $path := .path }}
