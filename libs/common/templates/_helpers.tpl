@@ -54,6 +54,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Default values
 */}}
 {{- define "common.defaultValues" }}
+{{- $firstContainerPort := (index (index .Values._services 0).ports 0).containerPort }}
 {{- $defaults := dict
   "_sa" (dict "create" false "name" "default")
   "_hpa" (dict "min" 1 "max" 1 "memory" 90)
@@ -61,6 +62,8 @@ Default values
     "requests" (dict "cpu" "10m" "memory" "100Mi")
     "limits" (dict "cpu" "1200m" "memory" "512Mi") )
   "_image" (dict "policy" "IfNotPresent")
+  "_livenessProbe" (dict "httpGet" (dict "path" "health/liveness" "port" $firstContainerPort ))
+  "_readinessProbe" (dict "httpGet" (dict "path" "health/readiness" "port" $firstContainerPort ))
 }}
 {{- $values := dict "Values" $defaults }}
 {{- $values | toYaml }}

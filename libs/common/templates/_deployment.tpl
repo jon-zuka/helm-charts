@@ -28,10 +28,10 @@ spec:
           image: "{{ .Values._image.repository }}:{{ .Values._image.tag }}"
           imagePullPolicy: {{ .Values._image.policy }}
           securityContext: {{ .Values._containerSecurityContext | toYaml | nindent 12 }}
-          livenessProbe: {{ .Values._image.liveness | toYaml | nindent 12 }}
-          readinessProbe: {{ .Values._image.readiness | toYaml | nindent 12 }}
+          livenessProbe: {{ .Values._livenessProbe | toYaml | nindent 12 }}
+          readinessProbe: {{ .Values._readinessProbe | toYaml | nindent 12 }}
           ports:
-          {{- range .Values.svc }}
+          {{- range .Values._services }}
           {{- range .ports }}
             - name: {{ .name | default "default" }}
               containerPort: {{ .containerPort | default .port }}
